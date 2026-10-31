@@ -1,117 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { Lattice } from "./Lattice";
+
+const line = {
+  hidden: { y: "105%" },
+  show: (i: number) => ({
+    y: "0%",
+    transition: { duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+
+const headline = [
+  "The future belongs not to",
+  "organisations with the most AI,",
+  "but to those that best combine",
+  "human judgment with machine intelligence.",
+];
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_50%)]" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]" />
-      </div>
+    <section className="relative w-full min-h-[100svh] flex flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-20">
+      <Lattice className="absolute inset-0 w-full h-full opacity-40 md:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_30%_35%,rgba(7,8,12,0.88),transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-          <span className="text-sm font-medium text-zinc-300">
-            Designing the next generation of organisational intelligence
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight text-white mb-8 leading-[1.1]"
-        >
-          The future belongs not to organisations with the most AI,{" "}
-          <span className="text-zinc-500">
-            but to those that best combine human judgment with machine intelligence.
-          </span>
-        </motion.h1>
-
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-zinc-400 max-w-3xl mb-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.1 }}
+          className="mb-8 flex items-center gap-3 text-sm text-mist"
         >
-          Vijnova Labs builds evidence-based AI software for knowledge work. We
-          study how professionals actually make decisions, then design tools that
-          support that process - starting with career counselling.
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-ember" />
+          </span>
+          Designing the next generation of organisational intelligence
         </motion.p>
 
+        <h1 className="font-display text-[clamp(2.1rem,5.4vw,5.2rem)] font-light leading-[1.06] tracking-[-0.02em] text-bone max-w-[18ch] md:max-w-[22ch]">
+          {headline.map((text, i) => (
+            <span key={text} className="block overflow-hidden pb-[0.12em] -mb-[0.12em]">
+              <motion.span
+                custom={i}
+                variants={line}
+                initial="hidden"
+                animate="show"
+                className={`block ${i > 1 ? "italic text-bone/80" : ""}`}
+              >
+                {text}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+          transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
+          className="mt-10 grid gap-10 md:grid-cols-[minmax(0,34rem)_auto] md:items-end md:justify-between"
         >
-          <a href="mailto:demo@vijnova.com?subject=Book%20a%20Demo" className="inline-flex items-center justify-center bg-white text-black hover:bg-zinc-200 px-8 py-4 text-lg rounded-full font-medium transition-colors">
-            Book a Demo
-          </a>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 border-white/10 hover:bg-white/5 text-base rounded-full gap-2">
-            <Play className="w-4 h-4" />
-            See How Margastra Works
-          </Button>
-        </motion.div>
+          <p className="text-lg leading-relaxed text-mist">
+            Vijnova Labs builds evidence-based AI software for knowledge work. We study how
+            professionals actually make decisions, then design tools that support that
+            process - starting with career counselling.
+          </p>
 
-        {/* Abstract Systems Diagram Graphic (Placeholder for "Human + Machine") */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="mt-24 relative w-full max-w-4xl h-[400px] border border-white/10 rounded-2xl bg-black/40 backdrop-blur-sm overflow-hidden flex items-center justify-center shadow-2xl shadow-blue-500/5"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505] z-10" />
-          
-          <div className="relative w-full h-full flex items-center justify-center z-0">
-             {/* Decorative grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" />
-            
-            {/* Abstract visual nodes */}
-            <div className="relative flex items-center gap-16">
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
-                   <div className="w-6 h-6 rounded-full border-2 border-zinc-500" />
-                </div>
-                <span className="text-xs text-zinc-500 font-medium tracking-widest uppercase">Human</span>
-              </div>
-              
-              <div className="flex flex-col gap-2">
-                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent relative">
-                  <motion.div 
-                    animate={{ x: [0, 128] }}
-                    transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-[2px] bg-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-                  />
-                </div>
-                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent relative">
-                   <motion.div 
-                    animate={{ x: [128, 0] }}
-                    transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-[2px] bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center backdrop-blur-md relative overflow-hidden">
-                   <div className="absolute inset-0 bg-blue-500/20 blur-xl" />
-                   <div className="w-4 h-4 bg-blue-400 rounded-sm shadow-[0_0_12px_rgba(59,130,246,0.8)]" />
-                </div>
-                <span className="text-xs text-blue-400/80 font-medium tracking-widest uppercase">Intelligence</span>
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="mailto:demo@vijnova.com?subject=Book%20a%20Demo"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-ember px-7 py-3.5 text-base font-medium text-ink transition-transform active:scale-[0.97]"
+            >
+              <span className="absolute inset-0 -translate-x-full bg-bone transition-transform duration-500 ease-out group-hover:translate-x-0" />
+              <span className="relative">Book a Demo</span>
+            </a>
+            <a
+              href="#product"
+              className="inline-flex items-center justify-center rounded-full border border-bone/20 px-7 py-3.5 text-base text-bone transition-colors hover:border-signal hover:text-signal"
+            >
+              See how Margastra works
+            </a>
           </div>
         </motion.div>
       </div>

@@ -53,8 +53,8 @@ const features = [
 
 function PsychometricVisual() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
-      <svg viewBox="0 0 100 100" className="w-64 h-64 text-cyan-500">
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <svg viewBox="0 0 100 100" className="w-72 h-72 md:w-80 md:h-80 text-signal">
         <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="none" stroke="currentColor" strokeWidth="1" />
         <polygon points="50,20 80,35 80,65 50,80 20,65 20,35" fill="none" stroke="currentColor" strokeWidth="0.5" />
         <motion.polygon
@@ -78,13 +78,13 @@ function PsychometricVisual() {
 
 function InterviewVisual() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center gap-2 pointer-events-none opacity-40">
+    <div className="absolute inset-0 flex items-center justify-center gap-2 pointer-events-none">
       {[...Array(14)].map((_, i) => (
         <motion.div
           key={i}
           animate={{ height: ["20%", `${30 + ((i * 37) % 60)}%`, "20%"] }}
           transition={{ repeat: Infinity, duration: 1.4, delay: i * 0.08, ease: "easeInOut" }}
-          className="w-1 bg-cyan-500 rounded-full"
+          className="w-1 bg-signal rounded-full"
         />
       ))}
     </div>
@@ -101,7 +101,7 @@ function ReportsVisual() {
           initial={{ width: "0%" }}
           animate={{ width: `${w}%` }}
           transition={{ duration: 0.6, delay: 0.15 + i * 0.15, ease: "easeOut" }}
-          className="h-2 rounded-full bg-cyan-500/30"
+          className="h-2 rounded-full bg-signal/30"
         />
       ))}
     </div>
@@ -114,8 +114,8 @@ function DatabaseVisual() {
     { x: 30, y: 78 }, { x: 70, y: 78 }, { x: 50, y: 55 },
   ];
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
-      <svg viewBox="0 0 100 100" className="w-64 h-64 text-cyan-500">
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <svg viewBox="0 0 100 100" className="w-72 h-72 md:w-80 md:h-80 text-signal">
         {nodes.slice(1).map((n, i) => (
           <line key={i} x1={nodes[5].x} y1={nodes[5].y} x2={n.x} y2={n.y} stroke="currentColor" strokeWidth="0.5" />
         ))}
@@ -137,8 +137,8 @@ function DatabaseVisual() {
 
 function MatchingVisual() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
-      <svg viewBox="0 0 100 100" className="w-64 h-64 text-cyan-500">
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <svg viewBox="0 0 100 100" className="w-72 h-72 md:w-80 md:h-80 text-signal">
         <circle cx="25" cy="30" r="6" fill="none" stroke="currentColor" strokeWidth="1" />
         <circle cx="25" cy="55" r="6" fill="none" stroke="currentColor" strokeWidth="1" />
         <circle cx="25" cy="80" r="6" fill="none" stroke="currentColor" strokeWidth="1" />
@@ -164,9 +164,9 @@ function RoadmapVisual() {
   const steps = [15, 38, 62, 85];
   return (
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-10">
-      <div className="relative w-full h-[2px] bg-cyan-500/20">
+      <div className="relative w-full h-[2px] bg-signal/20">
         <motion.div
-          className="absolute inset-y-0 left-0 bg-cyan-500/60 origin-left"
+          className="absolute inset-y-0 left-0 bg-signal/60 origin-left"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 1.6, ease: "easeInOut" }}
@@ -174,7 +174,7 @@ function RoadmapVisual() {
         {steps.map((s, i) => (
           <motion.div
             key={i}
-            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]"
+            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-signal shadow-[0_0_10px_rgba(124,156,255,0.8)]"
             style={{ left: `${s}%` }}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -199,18 +199,19 @@ export function ProductSection() {
   const [activeFeature, setActiveFeature] = useState(features[0].id);
   const ActiveVisual = visuals[activeFeature];
 
+  const current = features.find((f) => f.id === activeFeature)!;
+
   return (
-    <section id="product" className="relative w-full py-32 px-6 bg-[#050505]">
+    <section id="product" className="relative w-full py-28 md:py-40 px-6 bg-graphite">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-sm font-semibold tracking-widest text-cyan-500 uppercase mb-4">
-            Our Product
-          </h2>
-          <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6 tracking-tight">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] md:items-end mb-20">
+          <h2 className="font-display text-5xl md:text-7xl font-light tracking-[-0.02em] leading-[1.02] text-bone">
             Meet Margastra
-          </h3>
-          <p className="text-lg text-zinc-400 max-w-3xl mx-auto">
-            An integrated platform that helps career counsellors deliver more structured, evidence-based, and personalised guidance - while keeping professional judgment at the centre of every decision.
+          </h2>
+          <p className="text-lg leading-relaxed text-mist">
+            An integrated platform that helps career counsellors deliver more structured,
+            evidence-based, and personalised guidance - while keeping professional judgment at the
+            centre of every decision.
           </p>
         </div>
 
@@ -218,13 +219,9 @@ export function ProductSection() {
           value={activeFeature}
           onValueChange={(value) => setActiveFeature(value as string)}
           orientation="vertical"
-          className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-start"
+          className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch"
         >
-          {/* Feature List */}
-          <TabsList
-            variant="line"
-            className="w-full lg:w-1/2 flex-col items-stretch gap-2 h-auto bg-transparent p-0"
-          >
+          <TabsList variant="line" className="w-full lg:w-[44%] flex-col items-stretch gap-0 h-auto bg-transparent p-0">
             {features.map((feature) => {
               const isActive = activeFeature === feature.id;
               const Icon = feature.icon;
@@ -232,31 +229,29 @@ export function ProductSection() {
                 <TabsTrigger
                   key={feature.id}
                   value={feature.id}
-                  className={`w-full h-auto justify-start text-left p-6 rounded-2xl transition-all duration-300 relative data-active:bg-white/5 data-active:border data-active:border-white/10 data-active:shadow-lg ${
-                    isActive ? "opacity-100" : "opacity-60 hover:opacity-100 hover:bg-white/[0.02]"
-                  }`}
+                  className="group/t relative w-full h-auto justify-start text-left rounded-none border-0 border-t border-bone/10 px-0 py-5 whitespace-normal data-active:bg-transparent last:border-b after:hidden"
                 >
                   {isActive && (
-                    <motion.div
+                    <motion.span
                       layoutId="activeFeatureIndicator"
-                      className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-cyan-500 rounded-r-full"
+                      className="absolute -top-px left-0 h-px w-full bg-ember"
+                      transition={{ type: "spring", stiffness: 420, damping: 38 }}
                     />
                   )}
-                  <div className="flex items-start gap-4 w-full">
-                    <div className={`p-2 rounded-lg ${isActive ? "bg-cyan-500/20 text-cyan-400" : "bg-zinc-800 text-zinc-400"}`}>
-                      <Icon className="w-6 h-6" />
-                    </div>
+                  <div className="flex items-start gap-5 w-full">
+                    <Icon className={`mt-1 h-5 w-5 shrink-0 transition-colors duration-300 ${isActive ? "text-ember" : "text-mist group-hover/t:text-bone"}`} />
                     <div className="flex flex-col items-start">
-                      <h4 className={`text-xl font-medium mb-2 ${isActive ? "text-white" : "text-zinc-300"}`}>
+                      <h3 className={`font-display text-2xl md:text-3xl font-light tracking-tight transition-colors duration-300 ${isActive ? "text-bone" : "text-mist group-hover/t:text-bone"}`}>
                         {feature.title}
-                      </h4>
-                      <AnimatePresence>
+                      </h3>
+                      <AnimatePresence initial={false}>
                         {isActive && (
                           <motion.p
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="text-zinc-400 text-sm leading-relaxed whitespace-normal"
+                            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            className="pt-3 max-w-md text-base leading-relaxed text-mist"
                           >
                             {feature.description}
                           </motion.p>
@@ -269,46 +264,22 @@ export function ProductSection() {
             })}
           </TabsList>
 
-          {/* Interactive Feature Visuals */}
-          <div className="w-full lg:w-1/2 h-[500px] lg:h-[600px] rounded-3xl border border-white/10 bg-[#0d0d0d] relative overflow-hidden flex items-center justify-center p-8">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.1)_0%,transparent_70%)]" />
-
+          <div className="relative w-full lg:w-[56%] min-h-[420px] lg:min-h-[560px] rounded-[1.75rem] border border-bone/10 bg-ink overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(124,156,255,0.12),transparent_65%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(236,233,226,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(236,233,226,0.035)_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000,transparent)]" />
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeFeature}
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="w-full h-full border border-white/5 bg-[#050505] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="absolute inset-0"
               >
-                {/* Mock Browser/App Header */}
-                <div className="h-12 border-b border-white/5 bg-white/[0.02] flex items-center px-4 gap-2">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                </div>
-
-                {/* Visual Content */}
-                <div className="flex-1 p-8 flex items-center justify-center relative">
-                  <div className="text-center text-zinc-600 relative z-10">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center">
-                      {(() => {
-                        const ActiveIcon = features.find((f) => f.id === activeFeature)?.icon;
-                        return ActiveIcon ? <ActiveIcon className="w-8 h-8 text-cyan-500/50" /> : null;
-                      })()}
-                    </div>
-                    <p className="font-mono text-sm uppercase tracking-widest text-zinc-500">
-                      {features.find((f) => f.id === activeFeature)?.title}
-                    </p>
-                  </div>
-
-                  {ActiveVisual && <ActiveVisual />}
-                </div>
+                {ActiveVisual && <ActiveVisual />}
               </motion.div>
             </AnimatePresence>
+            <p className="absolute bottom-6 left-7 font-display text-xl italic text-bone/70">{current.title}</p>
           </div>
         </Tabs>
       </div>

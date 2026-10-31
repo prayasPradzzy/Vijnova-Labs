@@ -1,98 +1,65 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
 import { SpotlightCard } from "./ui/spotlight-card";
 
 const values = [
-  {
-    title: "Evidence Before Assumption",
-    desc: "Every product should be informed by research and measurable outcomes, not intuition alone."
-  },
-  {
-    title: "Human Agency Before Automation",
-    desc: "Technology should expand what professionals can do, not diminish their responsibility or judgment."
-  },
-  {
-    title: "Systems Thinking",
-    desc: "We design for the workflow an individual task sits inside, not the task in isolation."
-  },
-  {
-    title: "Trust Through Transparency",
-    desc: "Professionals should understand how a recommendation was generated and retain real oversight over important decisions."
-  }
+  { title: "Evidence before assumption", desc: "Every product should be informed by research and measurable outcomes, not intuition alone." },
+  { title: "Human agency before automation", desc: "Technology should expand what professionals can do, not diminish their responsibility or judgment." },
+  { title: "Systems thinking", desc: "We design for the workflow an individual task sits inside, not the task in isolation." },
+  { title: "Trust through transparency", desc: "Professionals should understand how a recommendation was generated and retain real oversight over important decisions." },
 ];
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative w-full py-32 px-6 bg-[#050505]">
+    <section id="about" className="relative w-full py-28 md:py-40 px-6">
       <div className="max-w-7xl mx-auto">
-        
-        {/* Why We Started & Mission */}
-        <div className="grid md:grid-cols-2 gap-16 mb-32">
-          <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-xl font-medium text-white mb-6">Why We Started</h2>
-            <p className="text-zinc-400 leading-relaxed text-lg">
-              Many professionals still struggle to find AI tools that genuinely improve how they work - they're often asked to adapt their workflow to the technology, rather than the other way around. We started Vijnova Labs to build software the other way: understand how professionals think and decide, then design AI that fits into that process.
+        <div className="grid gap-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-24">
+          <div>
+            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight text-bone">Why we started</h2>
+            <p className="mt-8 max-w-[34rem] text-lg leading-relaxed text-mist">
+              Many professionals still struggle to find AI tools that genuinely improve how they work
+              - they&apos;re often asked to adapt their workflow to the technology, rather than the
+              other way around. We started Vijnova Labs to build software the other way: understand
+              how professionals think and decide, then design AI that fits into that process.
             </p>
-          </motion.div>
-          <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.6, delay: 0.2 }}
-             className="p-8 rounded-3xl bg-blue-500/[0.02] border border-blue-500/10"
-          >
-            <h2 className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-4">Our Mission</h2>
-            <p className="text-2xl text-white font-medium leading-tight">
-              To turn advances in AI into evidence-based, domain-specific software that helps knowledge workers make better decisions and work more effectively - without replacing the judgment, accountability, and empathy only they can provide.
+          </div>
+          <div>
+            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight text-ember">Our mission</h2>
+            <p className="mt-8 font-display text-2xl md:text-[1.9rem] font-light leading-[1.3] text-bone">
+              To turn advances in AI into evidence-based, domain-specific software that helps
+              knowledge workers make better decisions and work more effectively - without replacing
+              the judgment, accountability, and empathy only they can provide.
             </p>
-          </motion.div>
-        </div>
-
-        {/* Values */}
-        <div className="mb-32">
-          <h2 className="text-3xl font-semibold text-white mb-12 text-center">Our Values</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, i) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <SpotlightCard className="h-full p-6 rounded-2xl border border-white/5 bg-white/[0.02] transition-colors hover:border-blue-500/20">
-                  <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
-                    <Check className="w-4 h-4 text-blue-500" />
-                  </div>
-                  <h3 className="text-lg font-medium text-white mb-3">{value.title}</h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">{value.desc}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
           </div>
         </div>
 
-        {/* Looking Ahead */}
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.6 }}
-           className="text-center max-w-3xl mx-auto"
-        >
-          <h2 className="text-sm font-semibold tracking-widest text-zinc-500 uppercase mb-4">Looking Ahead</h2>
-          <p className="text-xl text-zinc-300 leading-relaxed">
-            Margastra is our first product, focused on career counselling. As we learn more about how professionals in other fields work, we plan to bring the same approach to other knowledge-intensive professions.
-          </p>
-        </motion.div>
+        <h2 className="mt-32 mb-10 font-display text-4xl md:text-5xl font-light tracking-tight text-bone">Our values</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          {values.map((v, i) => (
+            <motion.div
+              key={v.title}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: (i % 2) * 0.1 }}
+            >
+              <SpotlightCard className="h-full rounded-3xl bg-graphite p-8" edgeColor="rgba(242,177,92,0.7)" glowColor="rgba(242,177,92,0.07)">
+                <h3 className="font-display text-2xl md:text-3xl font-light text-bone">{v.title}</h3>
+                <p className="mt-4 max-w-md text-base leading-relaxed text-mist">{v.desc}</p>
+              </SpotlightCard>
+            </motion.div>
+          ))}
+        </div>
 
+        <div className="mt-32 grid gap-6 border-t border-bone/10 pt-12 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-24">
+          <h2 className="font-display text-3xl font-light text-bone">Looking ahead</h2>
+          <p className="max-w-[34rem] text-lg leading-relaxed text-mist">
+            Margastra is our first product, focused on career counselling. As we learn more about
+            how professionals in other fields work, we plan to bring the same approach to other
+            knowledge-intensive professions.
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Newsreader, Geist } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
+const display = Newsreader({
+  variable: "--font-display",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+});
+
+const body = Geist({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
@@ -73,8 +80,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark antialiased h-full`} style={{ colorScheme: "dark" }}>
-      <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent/30">
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} dark antialiased h-full`}
+      style={{ colorScheme: "dark" }}
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-ember/30">
         {children}
         <script
           type="application/ld+json"

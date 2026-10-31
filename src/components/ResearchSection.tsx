@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 const disciplines = [
   "Industrial & Organisational Psychology",
@@ -10,58 +10,49 @@ const disciplines = [
   "Behavioural Science",
   "Artificial Intelligence",
   "Knowledge Representation",
-  "Decision Science"
+  "Decision Science",
 ];
 
 export function ResearchSection() {
   return (
-    <section id="research" className="relative w-full py-32 px-6 bg-[#0d0d0d] border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+    <section id="research" className="relative w-full py-28 md:py-40 bg-graphite overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] md:items-end">
+        <h2 className="font-display text-5xl md:text-7xl font-light tracking-[-0.02em] leading-[1.02] text-bone">
+          Evidence over intuition.
+        </h2>
+        <div>
+          <p className="text-lg leading-relaxed text-mist">
+            As Vijnova grows, we intend to publish white papers, technical reports, and practical
+            insights from our product development.
+          </p>
+          <a
+            href="/HPWT-DISSERTATION.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-8 inline-flex items-center gap-2 rounded-full border border-ember/60 px-6 py-3 text-base text-ember transition-colors hover:bg-ember hover:text-ink"
           >
-            <h2 className="text-sm font-semibold tracking-widest text-zinc-500 uppercase mb-4">
-              Research
-            </h2>
-            <h3 className="text-4xl font-semibold text-white mb-6 tracking-tight">
-              Evidence over intuition.
-            </h3>
-            <p className="text-lg text-zinc-400 mb-8 max-w-lg">
-              As Vijnova grows, we intend to publish white papers, technical reports, and practical insights from our product development.
-            </p>
-            
-            <a 
-              href="/HPWT-DISSERTATION.pdf" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/10 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer shadow-lg hover:shadow-blue-500/20"
-            >
-              Read My Dissertation
-            </a>
-          </motion.div>
+            Read My Dissertation
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
+      </div>
 
-          <motion.div
-             initial={{ opacity: 0, x: 20 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.6, delay: 0.2 }}
-             className="bg-[#050505] p-8 md:p-12 rounded-3xl border border-white/5"
-          >
-            <h4 className="font-serif text-2xl text-white mb-8 italic text-zinc-300">
-              Our work draws on multiple disciplines:
-            </h4>
-            <div className="flex flex-wrap gap-3">
-              {disciplines.map((d, i) => (
-                <div key={i} className="px-4 py-2 rounded-full border border-white/10 text-sm text-zinc-400 bg-white/[0.02]">
-                  {d}
-                </div>
-              ))}
-            </div>
-          </motion.div>
+      <div className="mt-20 px-6 max-w-7xl mx-auto">
+        <p className="font-display text-2xl italic text-bone/70">Our work draws on multiple disciplines</p>
+      </div>
+      <div
+        className="marquee mt-8 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]"
+        aria-label="Disciplines: Industrial and Organisational Psychology, Cognitive Science, Human-Computer Interaction, Organisational Design, Behavioural Science, Artificial Intelligence, Knowledge Representation, Decision Science"
+      >
+        <div className="marquee-track flex w-max gap-4" aria-hidden>
+          {[...disciplines, ...disciplines].map((d, i) => (
+            <span
+              key={i}
+              className="whitespace-nowrap rounded-full border border-bone/12 bg-ink px-7 py-4 font-display text-2xl font-light text-bone/85 transition-colors hover:border-signal hover:text-signal"
+            >
+              {d}
+            </span>
+          ))}
         </div>
       </div>
     </section>

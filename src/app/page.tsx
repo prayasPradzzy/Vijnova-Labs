@@ -13,7 +13,7 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#fafafa] selection:bg-blue-500/30">
+    <div className="grain relative min-h-screen bg-ink text-bone selection:bg-ember/30">
       <Navigation />
       
       <main className="flex flex-col items-center w-full overflow-hidden">

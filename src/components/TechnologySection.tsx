@@ -1,103 +1,149 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageSquare, FileOutput, Share2, Scale, Eye } from "lucide-react";
 import { SpotlightCard } from "./ui/spotlight-card";
 
-const techStack = [
-  {
-    title: "Natural Language Processing",
-    desc: "Interview transcription and structured insight extraction.",
-    icon: MessageSquare,
-    color: "from-blue-500/20 to-blue-600/5",
-    borderColor: "border-blue-500/30"
-  },
-  {
-    title: "Large Language Models",
-    desc: "Drafting reports and summarising complex information.",
-    icon: FileOutput,
-    color: "from-indigo-500/20 to-indigo-600/5",
-    borderColor: "border-indigo-500/30"
-  },
-  {
-    title: "Knowledge Graphs",
-    desc: "Organising occupational intelligence and skill relationships.",
-    icon: Share2,
-    color: "from-purple-500/20 to-purple-600/5",
-    borderColor: "border-purple-500/30"
-  },
-  {
-    title: "Rule-Based Systems",
-    desc: "Transparent, explainable matching without black-box logic.",
-    icon: Scale,
-    color: "from-cyan-500/20 to-cyan-600/5",
-    borderColor: "border-cyan-500/30"
-  },
-  {
-    title: "Human-in-the-Loop",
-    desc: "Professional oversight at every critical step of the workflow.",
-    icon: Eye,
-    color: "from-emerald-500/20 to-emerald-600/5",
-    borderColor: "border-emerald-500/30"
-  }
+const inView = { once: true, margin: "-80px" } as const;
+
+function NlpVisual() {
+  const words = ["I", "want", "more", "autonomy", "but", "fear", "instability"];
+  const hot = new Set([3, 5]);
+  return (
+    <div className="flex flex-wrap gap-x-2 gap-y-1 text-sm text-mist">
+      {words.map((w, i) => (
+        <motion.span
+          key={w + i}
+          initial={{ backgroundColor: "rgba(124,156,255,0)" }}
+          whileInView={hot.has(i) ? { backgroundColor: "rgba(124,156,255,0.28)", color: "#ece9e2" } : {}}
+          viewport={inView}
+          transition={{ duration: 0.5, delay: 0.5 + i * 0.12 }}
+          className="rounded px-1"
+        >
+          {w}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
+
+function LlmVisual() {
+  return (
+    <div className="space-y-2.5">
+      {[92, 100, 78, 56].map((w, i) => (
+        <motion.div
+          key={i}
+          initial={{ width: 0 }}
+          whileInView={{ width: `${w}%` }}
+          viewport={inView}
+          transition={{ duration: 0.9, delay: 0.3 + i * 0.25, ease: "easeOut" }}
+          className="h-1.5 rounded-full bg-bone/20"
+        />
+      ))}
+      <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ repeat: Infinity, duration: 1 }}
+        className="inline-block h-4 w-[2px] bg-signal"
+      />
+    </div>
+  );
+}
+
+function GraphVisual() {
+  const n = [[50, 50], [18, 24], [82, 26], [24, 78], [78, 76]];
+  return (
+    <svg viewBox="0 0 100 100" className="h-24 w-full text-signal" aria-hidden>
+      {n.slice(1).map(([x, y], i) => (
+        <motion.line
+          key={i} x1="50" y1="50" x2={x} y2={y} stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.6"
+          initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={inView}
+          transition={{ duration: 0.8, delay: 0.3 + i * 0.15 }}
+        />
+      ))}
+      {n.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={i === 0 ? 6 : 3.5} fill="currentColor" fillOpacity={i === 0 ? 1 : 0.55} />
+      ))}
+    </svg>
+  );
+}
+
+function RulesVisual() {
+  return (
+    <div className="space-y-2 text-sm">
+      {[["Prefers structure", "Operations roles"], ["Enjoys persuasion", "Advisory roles"]].map(([a, b], i) => (
+        <motion.div
+          key={a}
+          initial={{ opacity: 0, x: -8 }} whileInView={{ opacity: 1, x: 0 }} viewport={inView}
+          transition={{ delay: 0.3 + i * 0.25 }}
+          className="flex items-center gap-2 text-mist"
+        >
+          <span className="rounded bg-bone/[0.06] px-2 py-0.5">{a}</span>
+          <span className="h-px w-5 bg-signal" />
+          <span className="rounded bg-signal/15 px-2 py-0.5 text-bone">{b}</span>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function LoopVisual() {
+  return (
+    <div className="flex items-center gap-3 text-sm text-mist">
+      <span>Draft</span>
+      <span className="h-px flex-1 bg-bone/20" />
+      <motion.span
+        initial={{ scale: 0.8 }} whileInView={{ scale: 1 }} viewport={inView}
+        transition={{ type: "spring", delay: 0.6 }}
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-ember text-ink"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <motion.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={inView} transition={{ delay: 0.9, duration: 0.5 }} />
+        </svg>
+      </motion.span>
+      <span className="h-px flex-1 bg-bone/20" />
+      <span className="text-bone">Approved</span>
+    </div>
+  );
+}
+
+const tech = [
+  { title: "Natural Language Processing", desc: "Interview transcription and structured insight extraction.", span: "lg:col-span-3", Visual: NlpVisual, edge: "rgba(124,156,255,0.7)" },
+  { title: "Large Language Models", desc: "Drafting reports and summarising complex information.", span: "lg:col-span-3", Visual: LlmVisual, edge: "rgba(124,156,255,0.7)" },
+  { title: "Knowledge Graphs", desc: "Organising occupational intelligence and skill relationships.", span: "lg:col-span-2", Visual: GraphVisual, edge: "rgba(124,156,255,0.7)" },
+  { title: "Rule-Based Systems", desc: "Transparent, explainable matching without black-box logic.", span: "lg:col-span-2", Visual: RulesVisual, edge: "rgba(124,156,255,0.7)" },
+  { title: "Human-in-the-Loop", desc: "Professional oversight at every critical step of the workflow.", span: "lg:col-span-2", Visual: LoopVisual, edge: "rgba(242,177,92,0.8)", human: true },
 ];
 
 export function TechnologySection() {
   return (
-    <section className="relative w-full py-32 px-6 bg-[#0d0d0d] overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03)_0%,transparent_50%)]" />
-      
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-sm font-semibold tracking-widest text-zinc-500 uppercase mb-4">
-            Technology
-          </h2>
-          <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6 tracking-tight">
+    <section className="relative w-full py-28 md:py-40 px-6 bg-graphite">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] md:items-end mb-16">
+          <h2 className="font-display text-5xl md:text-7xl font-light tracking-[-0.02em] leading-[1.02] text-bone">
             An ensemble of intelligence.
-          </h3>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Our platforms combine several AI technologies, each solving a specific problem within a professional's workflow, rather than relying on a single model to do everything.
+          </h2>
+          <p className="text-lg leading-relaxed text-mist">
+            Our platforms combine several AI technologies, each solving a specific problem within a
+            professional&apos;s workflow, rather than relying on a single model to do everything.
           </p>
         </div>
 
-        <div className="relative max-w-5xl mx-auto mt-24">
-           {/* Abstract Node Graph Background */}
-           <div className="absolute inset-0 hidden md:block opacity-20 pointer-events-none">
-             <svg className="w-full h-full" style={{ minHeight: '400px' }}>
-                <path d="M 200,100 C 400,100 300,300 500,300" fill="none" stroke="currentColor" strokeWidth="1" className="text-blue-500" />
-                <path d="M 500,300 C 700,300 600,100 800,100" fill="none" stroke="currentColor" strokeWidth="1" className="text-purple-500" />
-                <path d="M 500,300 C 600,450 700,450 800,300" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-500" />
-                <path d="M 200,300 C 300,450 400,450 500,300" fill="none" stroke="currentColor" strokeWidth="1" className="text-emerald-500" />
-             </svg>
-           </div>
-
-           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-              {techStack.map((tech, i) => {
-                const Icon = tech.icon;
-                const isCenter = i === 4;
-                return (
-                  <motion.div
-                    key={tech.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className={isCenter ? 'md:col-span-2 lg:col-span-3 max-w-xl mx-auto' : ''}
-                  >
-                    <SpotlightCard
-                      glowColor="rgba(255,255,255,0.1)"
-                      className={`p-6 rounded-3xl border bg-gradient-to-br bg-[#050505] backdrop-blur-md hover:scale-[1.02] transition-transform ${tech.borderColor}`}
-                    >
-                      <div className={`w-12 h-12 rounded-xl mb-6 flex items-center justify-center bg-gradient-to-br ${tech.color} border ${tech.borderColor}`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <h4 className="text-xl font-medium text-white mb-2">{tech.title}</h4>
-                      <p className="text-zinc-400 text-sm leading-relaxed">{tech.desc}</p>
-                    </SpotlightCard>
-                  </motion.div>
-                )
-              })}
-           </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
+          {tech.map(({ title, desc, span, Visual, edge, human }) => (
+            <SpotlightCard
+              key={title}
+              edgeColor={edge}
+              glowColor={human ? "rgba(242,177,92,0.09)" : undefined}
+              className={`${span} flex min-h-[260px] flex-col justify-between rounded-3xl bg-ink p-7 ${human ? "md:col-span-2" : ""}`}
+            >
+              <div className="min-h-[96px] pb-8">
+                <Visual />
+              </div>
+              <div>
+                <h3 className="font-display text-2xl font-light text-bone">{title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-mist">{desc}</p>
+              </div>
+            </SpotlightCard>
+          ))}
         </div>
       </div>
     </section>
